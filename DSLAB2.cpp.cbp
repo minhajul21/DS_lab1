@@ -1,0 +1,75 @@
+#include <iostream>
+
+using namespace std;
+
+void removeLowestElement(std::stack<int> &stk) {
+    if (stk.empty()) {
+        std::cout << "Stack is empty!" << std::endl;
+        return;
+    }
+
+    int lowest = INT_MAX;
+    std::stack<int> tempStack;
+
+    // Find the lowest element in the stack
+    while (!stk.empty()) {
+        int current = stk.top();
+        stk.pop();
+        if (current < lowest) {
+            lowest = current;
+        }
+        tempStack.push(current);
+    }
+
+    // Remove the lowest element
+    while (!tempStack.empty()) {
+        int current = tempStack.top();
+        tempStack.pop();
+        if (current != lowest) {
+            stk.push(current);
+        }
+    }
+}
+
+int main() {
+    std::stack<int> stack;
+
+    // Input some elements onto the stack
+    stack.push(5);
+    stack.push(2);
+    stack.push(4);
+    stack.push(7);
+
+    std::cout << "Stack elements are: ";
+    while (!stack.empty()) {
+        std::cout << stack.top() << " ";
+        stack.pop();
+    }
+    std::cout << std::endl;
+
+    // Refill the stack
+    stack.push(5);
+    stack.push(-1);
+    stack.push(2);
+    stack.push(4);
+    stack.push(7);
+
+    std::cout << "Stack elements are: ";
+    while (!stack.empty()) {
+        std::cout << stack.top() << " ";
+        stack.pop();
+    }
+    std::cout << std::endl;
+
+    // Remove the lowest element
+    removeLowestElement(stack);
+
+    std::cout << "Stack elements are: ";
+    while (!stack.empty()) {
+        std::cout << stack.top() << " ";
+        stack.pop();
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
